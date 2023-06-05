@@ -246,7 +246,7 @@ auto WorkspaceGroup::creation_delayed() const -> bool {
 }
 
 auto WorkspaceGroup::add_button(Gtk::Button &button) -> void {
-  box_.pack_start(button, false, false);
+  box_.pack_start(button, true, true);
 }
 
 WorkspaceGroup::~WorkspaceGroup() {
@@ -399,8 +399,15 @@ Workspace::Workspace(const Bar &bar, const Json::Value &config, WorkspaceGroup &
   }
 
   button_.set_relief(Gtk::RELIEF_NONE);
-  content_.set_center_widget(label_);
+
+  content_.add(label_);
   button_.add(content_);
+
+  label_.set_vexpand_set(true);
+  label_.set_vexpand_set(true);
+  label_.set_valign(Gtk::Align::ALIGN_START);
+
+
 
   if (!workspace_group.is_visible()) {
     return;

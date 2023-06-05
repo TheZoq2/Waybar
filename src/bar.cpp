@@ -759,7 +759,7 @@ void waybar::Bar::getModules(const Factory& factory, const std::string& pos,
         std::shared_ptr<AModule> module_sp(module);
         modules_all_.emplace_back(module_sp);
         if (group) {
-          group->pack_start(*module, false, false);
+          group->pack_start(*module, true, true);
         } else {
           if (pos == "modules-left") {
             modules_left_.emplace_back(module_sp);
@@ -787,9 +787,9 @@ void waybar::Bar::getModules(const Factory& factory, const std::string& pos,
 
 auto waybar::Bar::setupWidgets() -> void {
   window.add(box_);
-  box_.pack_start(left_, false, false);
+  box_.pack_start(left_, true, true);
   if (config["fixed-center"].isBool() ? config["fixed-center"].asBool() : true) {
-    box_.set_center_widget(center_);
+    // box_.set_center_widget(center_);
   } else {
     box_.pack_start(center_, true, false);
   }
@@ -798,17 +798,17 @@ auto waybar::Bar::setupWidgets() -> void {
   // Convert to button code for every module that is used.
   setupAltFormatKeyForModuleList("modules-left");
   setupAltFormatKeyForModuleList("modules-right");
-  setupAltFormatKeyForModuleList("modules-center");
+  // setupAltFormatKeyForModuleList("modules-center");
 
   Factory factory(*this, config);
   getModules(factory, "modules-left");
   getModules(factory, "modules-center");
   getModules(factory, "modules-right");
   for (auto const& module : modules_left_) {
-    left_.pack_start(*module, false, false);
+    left_.pack_start(*module, true, true);
   }
   for (auto const& module : modules_center_) {
-    center_.pack_start(*module, false, false);
+    // center_.pack_start(*module, false, false);
   }
   std::reverse(modules_right_.begin(), modules_right_.end());
   for (auto const& module : modules_right_) {
