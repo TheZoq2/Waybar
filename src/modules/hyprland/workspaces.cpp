@@ -166,7 +166,7 @@ void Workspaces::create_workspace(Json::Value &value) {
   // create new workspace
   workspaces_.emplace_back(std::make_unique<Workspace>(value));
   Gtk::Button &new_workspace_button = workspaces_.back()->button();
-  box_.pack_start(new_workspace_button, false, false);
+  box_.pack_start(new_workspace_button, true, true);
   sort_workspaces();
   new_workspace_button.show_all();
 }
@@ -306,6 +306,11 @@ Workspace::Workspace(const Json::Value &workspace_data)
 
   button_.set_relief(Gtk::RELIEF_NONE);
   content_.set_center_widget(label_);
+
+  label_.set_vexpand_set(true);
+  label_.set_vexpand_set(true);
+  label_.set_valign(Gtk::Align::ALIGN_START);
+
   button_.add(content_);
 };
 
